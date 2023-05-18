@@ -1,8 +1,10 @@
 import os
 import sys
 import traceback
+import json
 
 from game.game import Game
+from state.state import lookup
 
 def main():
     while True:

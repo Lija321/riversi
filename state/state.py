@@ -2,6 +2,7 @@ import numpy as np
 
 from common.exceptions import *
 from common import constants
+import c_extentions.riversi_c_utils as c_util
 
 class State(object):
 
@@ -84,8 +85,9 @@ def possible_moves(state:State):
                         else: line_found=True
     return ret
 
+"""
 def heuristics(state:State) ->np.float16:
-    if state in lookup: return lookup[state]
+    if state in lookup: return lookup[str(state)]
 
     if state.is_game_ended():
         piece_sum=np.sum(state.matrix)
@@ -109,7 +111,21 @@ def heuristics(state:State) ->np.float16:
         for j in range(8):
             score+=coeficients[i,j]*state.matrix[i,j]
 
-    lookup[state]=score
+    lookup[str(state)]=score
+    return score
+"""
+
+def heuristics(state:State) ->np.float16:
+    if state in lookup: return lookup[str(state)]
+    if state.is_game_ended():
+        piece_sum = np.sum(state.matrix)
+        if piece_sum == 0: return np.float16(0.0)
+        if piece_sum > 0:
+            return np.float16('inf')
+        else:
+            return np.float16('-inf')
+    score=c_util.heuristic(state.matrix)
+    lookup[str(state)]=score
     return score
 
 def place_piece(state:State,x,y) -> None:
