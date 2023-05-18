@@ -3,15 +3,10 @@ import numpy as np
 from state.state import *
 
 
-global lookup
-lookup={}
-
 def minimax(state:State,depth:int=6,first_call:bool=True, maximize:bool=True,
             alpha:np.float16=np.float16('-inf'),beta:np.float16=np.float16('inf')) -> (np.float16,State):
     if depth==0 or state.is_game_ended():
-        if not state in lookup:
-            lookup[state]=heuristics(state)
-        return lookup[state], None
+        return heuristics(state),None
 
     retState:State =None
 

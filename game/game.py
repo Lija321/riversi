@@ -20,7 +20,6 @@ class Game(object):
         if not self.type in range(0,5): raise Exception('Invalid type')
 
     def play(self):
-        try:
             if self.type==1: self.play_type1()
             elif self.type==2: self.play_type2()
             elif self.type==3: self.play_type3()
@@ -29,12 +28,7 @@ class Game(object):
             if evaluation>0: print("BLACK WON!!!")
             elif evaluation<0: print("WHITE WON!!!")
             else: print("DRAW.")
-        except KeyboardInterrupt:
-            sys.exit(0)
-        except Exception as e:
-            print(e)
-        finally:
-            sys.exit(-1)
+
 
     def play_type1(self):
         print_pos_to_console(self.state)

@@ -34,6 +34,8 @@ directions=(
     (-1,1),(0,1),(1,1),
 )
 
+lookup={}
+
 def fen_to_matrix(fen:str) -> np.matrix:
     data:np.matrix = np.matrix(np.zeros((8,8),dtype=np.int8))
     fen.lower()
@@ -83,6 +85,8 @@ def possible_moves(state:State):
     return ret
 
 def heuristics(state:State) ->np.float16:
+    if state in lookup: return lookup[state]
+
     if state.is_game_ended():
         piece_sum=np.sum(state.matrix)
         if piece_sum==0: return np.float16(0.0)
@@ -104,6 +108,8 @@ def heuristics(state:State) ->np.float16:
     for i in range(8):
         for j in range(8):
             score+=coeficients[i,j]*state.matrix[i,j]
+
+    lookup[state]=score
     return score
 
 def place_piece(state:State,x,y) -> None:
@@ -138,7 +144,7 @@ def place_piece(state:State,x,y) -> None:
         state.matrix[x,y]=state.player_to_move
     state.player_to_move=-state.player_to_move
 
-def state_children(state:State) -> iter:
+def state_children(state:State) -> list:
     pos=possible_moves(state)
     ret=[]
     for x,y in pos:

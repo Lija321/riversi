@@ -1,5 +1,6 @@
 import os
 import sys
+import traceback
 
 from game.game import Game
 
@@ -19,7 +20,8 @@ if __name__=="__main__":
         main()
     except KeyboardInterrupt:
         sys.exit(0)
-    except Exception as e:
-        print(e)
+
+    except Exception:
+        print(traceback.format_exc())
     finally:
         sys.exit(-1)
