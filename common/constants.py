@@ -1,0 +1,1 @@
+DEFAULT_FEN:str= "8/8/8/3wb3/3bw3/8/8/8"
