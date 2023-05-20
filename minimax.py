@@ -3,33 +3,70 @@ import numpy as np
 from state.state import *
 
 
-def minimax(state:State,depth:int=6,first_call:bool=True, maximize:bool=True,
-            alpha:np.float16=np.float16('-inf'),beta:np.float16=np.float16('inf')) -> (np.float16,State):
-    if depth==0 or state.is_game_ended():
-        return heuristics(state),None
+def minimax_init(state:State) -> (np.float16,State):
+    maximize=state.player_to_move==1
+    coin_count=np.sum(np.abs(state.matrix))
+    depth=6
+    if coin_count<=7:
+        depth=8
+    elif coin_count<=13:
+        depth=6
+    elif coin_count<=50:
+        depth=5
+    elif coin_count<=56:
+        depth=6
+    else:
+        depth=8
 
+    return minimax(state,depth,maximize)
+
+
+def minimax(state:State,depth:int=6,maximize:bool=True,
+            alpha:np.float16=np.float16('-inf'),beta:np.float16=np.float16('inf')) -> (np.float16,State):
     retState:State =None
+    if maximize:
+        maxEval = np.float16('-inf')
+        for child in state_children(state):
+            evaluation=alphabeta(child,depth-1,False,alpha,beta)
+            maxEval=np.maximum(maxEval,evaluation)
+            alpha=np.maximum(alpha,evaluation)
+            if beta<=alpha: break
+            if maxEval == evaluation: retState = child
+        return maxEval,retState
+    else:
+        minEval=np.float16('inf')
+        for child in state_children(state):
+            evaluation=alphabeta(child,depth-1,True,alpha,beta)
+            minEval=np.minimum(minEval,evaluation)
+            beta = np.minimum(beta,evaluation)
+            if minEval == evaluation: retState = child
+            if beta<=alpha: break
+        return minEval,retState
+
+
+def alphabeta(state:State,depth:int=6, maximize:bool=True,
+            alpha:np.float16=np.float16('-inf'),beta:np.float16=np.float16('inf')) -> np.float16:
+    if depth==0 or state.is_game_ended():
+        return heuristics(state)
+
 
     if maximize:
         maxEval = np.float16('-inf')
         for child in state_children(state):
-            evaluation,_=minimax(child,depth-1,False,False,alpha,beta)
+            evaluation=alphabeta(child,depth-1,False,alpha,beta)
             maxEval=np.maximum(maxEval,evaluation)
             alpha=np.maximum(alpha,evaluation)
             if beta<=alpha: break
-            if maxEval==evaluation: retState=child #TODO Ekspreimentisi sa razlicitm biranjem ovoga, NPR razlicita f-ja za prvi sloj
-        if not first_call:return maxEval,None
-        else:return maxEval,retState
+        return maxEval
     else:
         minEval=np.float16('inf')
         for child in state_children(state):
-            evaluation,_=minimax(child,depth-1,False,True,alpha,beta)
+            evaluation=alphabeta(child,depth-1,True,alpha,beta)
             minEval=np.minimum(minEval,evaluation)
             beta = np.minimum(beta,evaluation)
             if beta<=alpha: break
-            if minEval==evaluation: retState=child
-        if not first_call:return minEval,None
-        else:return minEval,retState
+        return minEval
+
 
 
 if __name__=="__main__":

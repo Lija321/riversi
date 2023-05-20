@@ -34,8 +34,7 @@ class Game(object):
         print_pos_to_console(self.state)
         while not self.state.is_game_ended():
             dt = time.time()
-            evaluation, self.state = minimax.minimax(self.state, 6, True, self.state.player_to_move == 1, np.float16('-inf'),
-                                                np.float16('inf'))
+            evaluation, self.state = minimax.minimax_init(self.state)
             print_pos_to_console(self.state)
             print(len(minimax.lookup))
             print(f"{time.time() - dt:.5f}")
@@ -59,15 +58,13 @@ class Game(object):
             place_piece(self.state,choice[0],choice[1])
             print_state_to_console(self.state)
             minimax_time = time.time()
-            evaluation, self.state = minimax.minimax(self.state, 6, True, self.state.player_to_move == 1, np.float16('-inf'),
-                                                np.float16('inf'))
+            evaluation, self.state = minimax.minimax_init(self.state)
             minimax_time = time.time() - minimax_time
 
     def play_type3(self):
         while not self.state.is_game_ended():
             minimax_time=time.time()
-            evaluation, self.state = minimax.minimax(self.state, 6, True, self.state.player_to_move == 1, np.float16('-inf'),
-                                                np.float16('inf'))
+            evaluation, self.state = minimax.minimax_init(self.state)
             minimax_time=time.time()-minimax_time
 
             while True:

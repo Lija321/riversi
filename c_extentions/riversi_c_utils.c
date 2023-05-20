@@ -5,15 +5,16 @@ static PyObject* heuristic(PyObject* self, PyObject* args)
 {
     PyArrayObject* input_array;
 
+    //iz papira
     float coeficients[64] = {
-        {50, -1, 4, 4, 4, 4, -1, 50,
-        -1, -1, 2, 2, 2, 2, -1, -1,
-        4, 2, 1, 1, 1, 1, 2, 4,
-        4, 2, 1, 0.2, 0.2, 1, 2, 4,
-        4, 2, 1, 0.2, 0.2, 1, 2, 4,
-        4, 2, 1, 1, 1, 1, 2, 4,
-        -1, -1, 2, 2, 2, 2, -1, -1,
-        50, -1, 4, 4, 4, 4, -1, 50}
+        {4, -3, 2, 2, 2, 2, -3, 4,
+        -3, -4, -1, -1, -1, -1, -4, -3,
+        2, -1, 1, 0, 0, 1, -1, 2,
+        2, -1, 0, 1, 1, 0, -1, 2,
+        2, -1, 0, 1, 1, 0, -1, 2,
+        2, -1, 1, 0, 0, 1, -1, 2,
+        -3, -4, -1, -1, -1, -1, -4, -3,
+        4, -3, 2, 2, 2, 2, -3, 4}
     };
 
     // Parse the input arguments
@@ -29,8 +30,19 @@ static PyObject* heuristic(PyObject* self, PyObject* args)
 
     // Perform the computation
     npy_float16 result = 0.0;
-    for (int i = 0; i < shape[0] * shape[1]; ++i)
+    byte black_coins=0;
+    byte white_coins=0;
+    for (int i = 0; i < shape[0] * shape[1]; ++i){
+        if(data[i]==1){
+            black_coins++;
+        }
+        else if(data[i]==-1){
+            white_coins++;
+        }
         result += (npy_float16)(data[i]*coeficients[i]);
+    }
+
+    float parity=100*(black_coins-white_coins)/(black_coins+white_coins)
 
     // Clean up
     Py_DECREF(matrix);
