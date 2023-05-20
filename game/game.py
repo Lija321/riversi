@@ -36,8 +36,9 @@ class Game(object):
             dt = time.time()
             evaluation, self.state = minimax.minimax_init(self.state)
             print_pos_to_console(self.state)
-            print(len(minimax.lookup))
-            print(f"{time.time() - dt:.5f}")
+            print(f"Lookup len: {len(minimax.lookup)}")
+            print(f"Algorithm time: {time.time() - dt:.5f}")
+            print(f"Evaluation: {evaluation}")
 
     def play_type2(self):
         first_iter=True
@@ -45,6 +46,7 @@ class Game(object):
             print_pos_to_console(self.state)
             if not first_iter:
                 print(f"\nAlgorithm time: {minimax_time:.3f}s")
+                print(f"Evaluation: {evaluation}")
             else: first_iter=False
             pos=possible_moves(self.state)
             temp=[]
@@ -70,6 +72,7 @@ class Game(object):
             while True:
                 print_pos_to_console(self.state)
                 print(f"\nAlgorithm time: {minimax_time:.3f}s")
+                print(f"Evaluation: {evaluation}")
                 pos = possible_moves(self.state)
                 temp = []
                 for i, item in enumerate(pos):

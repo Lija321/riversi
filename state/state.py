@@ -1,4 +1,5 @@
 import numpy as np
+import queue
 
 from common.exceptions import *
 from common import constants
@@ -19,6 +20,9 @@ class State(object):
 
     def is_game_ended(self):
         return len(possible_moves(self)) == 0
+
+    def __lt__(self, other):
+        return heuristics(self)<heuristics(other)
 
     def __str__(self):
         return str(self.matrix)
@@ -65,7 +69,6 @@ def fen_to_matrix(fen: str) -> np.matrix:
                     raise FenException("Greska u fenu")
     return data
 
-
 def possible_moves(state: State):
     if state in posible_moves_lookup: return posible_moves_lookup[str(state)]
     ret = set()  # TODO Nadji nesto efikasnije
@@ -97,7 +100,6 @@ def possible_moves(state: State):
     posible_moves_lookup[str(state)] = ret
     return ret
 
-
 """
 def heuristics(state:State) ->np.float16:
     if state in lookup: return lookup[str(state)]
@@ -127,7 +129,6 @@ def heuristics(state:State) ->np.float16:
     lookup[str(state)]=score
     return score
 """
-
 
 def heuristics(state: State) -> np.float16:
     if state in lookup: return lookup[str(state)]
@@ -176,7 +177,7 @@ def place_piece(state: State, x, y) -> None:
     state.player_to_move = -state.player_to_move
 
 
-def state_children(state: State) -> list:
+def state_children(state: State) -> iter:
     pos = possible_moves(state)
     ret = []
     for x, y in pos:
@@ -186,13 +187,10 @@ def state_children(state: State) -> list:
     return ret
 
 
+
 def _main():
-    state = State(None, constants.DEFAULT_FEN)
-    print(str(state))
-    print(possible_moves(state))
-    x, y = eval(input(" >> "))
-    place_piece(state, x, y)
-    print(str(state))
+    state = State(None, "8/8/8/3wb3/3bw3/ww6/8/8")
+    print(heuristics(state))
 
 
 if __name__ == "__main__":

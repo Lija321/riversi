@@ -3,46 +3,27 @@
 
 static PyObject* heuristic(PyObject* self, PyObject* args)
 {
-    PyArrayObject* input_array;
-
-    //iz papira
-    float coeficients[64] = {
-        {4, -3, 2, 2, 2, 2, -3, 4,
-        -3, -4, -1, -1, -1, -1, -4, -3,
-        2, -1, 1, 0, 0, 1, -1, 2,
-        2, -1, 0, 1, 1, 0, -1, 2,
-        2, -1, 0, 1, 1, 0, -1, 2,
-        2, -1, 1, 0, 0, 1, -1, 2,
-        -3, -4, -1, -1, -1, -1, -4, -3,
-        4, -3, 2, 2, 2, 2, -3, 4}
-    };
+    PyArrayObject* matrix;
 
     // Parse the input arguments
-    if (!PyArg_ParseTuple(args, "O!", &PyArray_Type, &input_array))
+    if (!PyArg_ParseTuple(args, "O!", &PyArray_Type, &matrix)) {
         return NULL;
-
-    // Convert the input array to a numpy.matrix
-    PyObject* matrix = PyArray_FromArray(input_array, NULL, NPY_ARRAY_CARRAY);
-
-    // Get the underlying data pointer and shape information
-    float* data = (float*)PyArray_DATA(matrix);
-    npy_intp* shape = PyArray_DIMS(matrix);
-
-    // Perform the computation
-    npy_float16 result = 0.0;
-    byte black_coins=0;
-    byte white_coins=0;
-    for (int i = 0; i < shape[0] * shape[1]; ++i){
-        if(data[i]==1){
-            black_coins++;
-        }
-        else if(data[i]==-1){
-            white_coins++;
-        }
-        result += (npy_float16)(data[i]*coeficients[i]);
     }
 
-    float parity=100*(black_coins-white_coins)/(black_coins+white_coins)
+    if (PyArray_NDIM(matrix) != 2 || PyArray_TYPE(matrix) != NPY_INT8 ||
+        PyArray_DIM(matrix, 0) != 8 || PyArray_DIM(matrix, 1) != 8) {
+        PyErr_SetString(PyExc_TypeError, "Expected an 8x8 int8 matrix");
+        return NULL;
+    }
+
+    // Get a pointer to the matrix data
+    int8_t* data = (int8_t*)PyArray_DATA(matrix);
+
+    // Calculate the heuristic value
+    npy_float16 result = 0.0;
+    for (int i = 0; i < 64; i++) {
+        result += (npy_float16)data[i];
+    }
 
     // Clean up
     Py_DECREF(matrix);
