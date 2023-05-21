@@ -1,28 +1,32 @@
 import numpy as np
 
 from state.state import *
+import time
 
+_elapsed_time=0
 
 def minimax_init(state:State) -> (np.float16,State):
+    global _elapsed_time
     maximize=state.player_to_move==1
     coin_count=np.sum(np.abs(state.matrix))
     depth=6
     if coin_count<=7:
         depth=6
     elif coin_count<=13:
-        depth=6
-    elif coin_count<=50:
         depth=5
+    elif coin_count<=46:
+        depth=4
     elif coin_count<=56:
         depth=6
     else:
         depth=8
-
+    #_elapsed_time=time.time()
     return minimax(state,depth,maximize)
 
 
 def minimax(state:State,depth:int=6,maximize:bool=True,
             alpha:np.float16=np.float16('-inf'),beta:np.float16=np.float16('inf')) -> (np.float16,State):
+    global _elapsed_time
     retState:State =None
     if maximize:
         maxEval = np.float16('-inf')
@@ -53,6 +57,7 @@ def alphabeta(state:State,depth:int=6, maximize:bool=True,
     if maximize:
         maxEval = np.float16('-inf')
         for child in state_children(state):
+            #if time.time()-_elapsed_time>3: break
             evaluation=alphabeta(child,depth-1,False,alpha,beta)
             maxEval=np.maximum(maxEval,evaluation)
             alpha=np.maximum(alpha,evaluation)
@@ -61,6 +66,7 @@ def alphabeta(state:State,depth:int=6, maximize:bool=True,
     else:
         minEval=np.float16('inf')
         for child in state_children(state):
+            #if time.time()-_elapsed_time>3: break
             evaluation=alphabeta(child,depth-1,True,alpha,beta)
             minEval=np.minimum(minEval,evaluation)
             beta = np.minimum(beta,evaluation)

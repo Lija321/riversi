@@ -3079,21 +3079,21 @@ static PyObject *__pyx_pf_14riversi_cython_heuristics(CYTHON_UNUSED PyObject *__
  *         corner_closeness += matrix[7, 6]
  *     corner_closeness*=-12.5             # <<<<<<<<<<<<<<
  * 
- *     score = (10 * parity) + (801.724 * corners) + (382.026 * corner_closeness)+ (74.396 * frontier) + (10 * dynamic)
+ *     score = (10 * parity) + (1000 * corners) + (382.026 * corner_closeness)+ (74.396 * frontier) + (10 * dynamic)
  */
   __pyx_v_corner_closeness = (__pyx_v_corner_closeness * -12.5);
 
   /* "riversi_cython.pyx":79
  *     corner_closeness*=-12.5
  * 
- *     score = (10 * parity) + (801.724 * corners) + (382.026 * corner_closeness)+ (74.396 * frontier) + (10 * dynamic)             # <<<<<<<<<<<<<<
+ *     score = (10 * parity) + (1000 * corners) + (382.026 * corner_closeness)+ (74.396 * frontier) + (10 * dynamic)             # <<<<<<<<<<<<<<
  *     return np.float16(score)
  */
-  __pyx_v_score = (((((10.0 * __pyx_v_parity) + (801.724 * __pyx_v_corners)) + (382.026 * __pyx_v_corner_closeness)) + (74.396 * __pyx_v_frontier)) + (10.0 * __pyx_v_dynamic));
+  __pyx_v_score = (((((10.0 * __pyx_v_parity) + (1000.0 * __pyx_v_corners)) + (382.026 * __pyx_v_corner_closeness)) + (74.396 * __pyx_v_frontier)) + (10.0 * __pyx_v_dynamic));
 
   /* "riversi_cython.pyx":80
  * 
- *     score = (10 * parity) + (801.724 * corners) + (382.026 * corner_closeness)+ (74.396 * frontier) + (10 * dynamic)
+ *     score = (10 * parity) + (1000 * corners) + (382.026 * corner_closeness)+ (74.396 * frontier) + (10 * dynamic)
  *     return np.float16(score)             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);

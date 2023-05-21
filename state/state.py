@@ -44,6 +44,10 @@ directions = (
 
 lookup = {}
 
+corners=(
+    (0,0),(0,7),(7,0),(7,7)
+)
+
 posible_moves_lookup = {}
 
 
@@ -181,11 +185,15 @@ def state_children(state: State) -> iter:
     pos = possible_moves(state)
     ret = []
     for x, y in pos:
+
         new_state: State = State(state, None, None)
         place_piece(new_state, x, y)
-        ret.append(new_state)
+        if (x,y) in corners:
+            ret.insert(0,new_state)
+        else:
+            ret.append(new_state)
+    #ret.sort(key=lambda x: heuristics(x))
     return ret
-
 
 
 def _main():
