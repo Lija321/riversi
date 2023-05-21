@@ -2173,7 +2173,7 @@ static PyObject *__pyx_pf_14riversi_cython_heuristics(CYTHON_UNUSED PyObject *__
  *             if matrix[i,j]==1: b_tiles+=1
  *             elif matrix[i,j]==-1: w_tiles+=1             # <<<<<<<<<<<<<<
  *             if matrix[i,j]!=0:
- *                 for k in range(8):
+ *               for k in range(8):
  */
       __pyx_t_6 = __pyx_v_i;
       __pyx_t_7 = __pyx_v_j;
@@ -2200,8 +2200,8 @@ static PyObject *__pyx_pf_14riversi_cython_heuristics(CYTHON_UNUSED PyObject *__
  *             if matrix[i,j]==1: b_tiles+=1
  *             elif matrix[i,j]==-1: w_tiles+=1
  *             if matrix[i,j]!=0:             # <<<<<<<<<<<<<<
- *                 for k in range(8):
- *                     x=i+directions[k][0]
+ *               for k in range(8):
+ *                    x=i+directions[k][0]
  */
       __pyx_t_7 = __pyx_v_i;
       __pyx_t_6 = __pyx_v_j;
@@ -2224,19 +2224,19 @@ static PyObject *__pyx_pf_14riversi_cython_heuristics(CYTHON_UNUSED PyObject *__
         /* "riversi_cython.pyx":31
  *             elif matrix[i,j]==-1: w_tiles+=1
  *             if matrix[i,j]!=0:
- *                 for k in range(8):             # <<<<<<<<<<<<<<
- *                     x=i+directions[k][0]
- *                     y=j+directions[k][0]
+ *               for k in range(8):             # <<<<<<<<<<<<<<
+ *                    x=i+directions[k][0]
+ *                    y=j+directions[k][0]
  */
         for (__pyx_t_8 = 0; __pyx_t_8 < 8; __pyx_t_8+=1) {
           __pyx_v_k = __pyx_t_8;
 
           /* "riversi_cython.pyx":32
  *             if matrix[i,j]!=0:
- *                 for k in range(8):
- *                     x=i+directions[k][0]             # <<<<<<<<<<<<<<
- *                     y=j+directions[k][0]
- *                     if (x >= 0 and x < 8 and y >= 0 and y < 8 and matrix[x,y] == 0):
+ *               for k in range(8):
+ *                    x=i+directions[k][0]             # <<<<<<<<<<<<<<
+ *                    y=j+directions[k][0]
+ *                    if (x >= 0 and x < 8 and y >= 0 and y < 8 and matrix[x,y] == 0):
  */
           __pyx_t_5 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 32, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_5);
@@ -2256,11 +2256,11 @@ static PyObject *__pyx_pf_14riversi_cython_heuristics(CYTHON_UNUSED PyObject *__
           __pyx_t_3 = 0;
 
           /* "riversi_cython.pyx":33
- *                 for k in range(8):
- *                     x=i+directions[k][0]
- *                     y=j+directions[k][0]             # <<<<<<<<<<<<<<
- *                     if (x >= 0 and x < 8 and y >= 0 and y < 8 and matrix[x,y] == 0):
- *                         if matrix[i,j]==1:
+ *               for k in range(8):
+ *                    x=i+directions[k][0]
+ *                    y=j+directions[k][0]             # <<<<<<<<<<<<<<
+ *                    if (x >= 0 and x < 8 and y >= 0 and y < 8 and matrix[x,y] == 0):
+ *                        if matrix[i,j]==1:
  */
           __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 33, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
@@ -2280,11 +2280,11 @@ static PyObject *__pyx_pf_14riversi_cython_heuristics(CYTHON_UNUSED PyObject *__
           __pyx_t_5 = 0;
 
           /* "riversi_cython.pyx":34
- *                     x=i+directions[k][0]
- *                     y=j+directions[k][0]
- *                     if (x >= 0 and x < 8 and y >= 0 and y < 8 and matrix[x,y] == 0):             # <<<<<<<<<<<<<<
- *                         if matrix[i,j]==1:
- *                             bf_tiles+=1
+ *                    x=i+directions[k][0]
+ *                    y=j+directions[k][0]
+ *                    if (x >= 0 and x < 8 and y >= 0 and y < 8 and matrix[x,y] == 0):             # <<<<<<<<<<<<<<
+ *                        if matrix[i,j]==1:
+ *                            bf_tiles+=1
  */
           __pyx_t_5 = PyObject_RichCompare(__pyx_v_x, __pyx_int_0, Py_GE); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 34, __pyx_L1_error)
           __pyx_t_12 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_12 < 0)) __PYX_ERR(0, 34, __pyx_L1_error)
@@ -2339,11 +2339,11 @@ static PyObject *__pyx_pf_14riversi_cython_heuristics(CYTHON_UNUSED PyObject *__
           if (__pyx_t_11) {
 
             /* "riversi_cython.pyx":35
- *                     y=j+directions[k][0]
- *                     if (x >= 0 and x < 8 and y >= 0 and y < 8 and matrix[x,y] == 0):
- *                         if matrix[i,j]==1:             # <<<<<<<<<<<<<<
- *                             bf_tiles+=1
- *                         else:
+ *                    y=j+directions[k][0]
+ *                    if (x >= 0 and x < 8 and y >= 0 and y < 8 and matrix[x,y] == 0):
+ *                        if matrix[i,j]==1:             # <<<<<<<<<<<<<<
+ *                            bf_tiles+=1
+ *                        else:
  */
             __pyx_t_6 = __pyx_v_i;
             __pyx_t_7 = __pyx_v_j;
@@ -2364,29 +2364,29 @@ static PyObject *__pyx_pf_14riversi_cython_heuristics(CYTHON_UNUSED PyObject *__
             if (__pyx_t_11) {
 
               /* "riversi_cython.pyx":36
- *                     if (x >= 0 and x < 8 and y >= 0 and y < 8 and matrix[x,y] == 0):
- *                         if matrix[i,j]==1:
- *                             bf_tiles+=1             # <<<<<<<<<<<<<<
- *                         else:
- *                             wf_tiles+=1
+ *                    if (x >= 0 and x < 8 and y >= 0 and y < 8 and matrix[x,y] == 0):
+ *                        if matrix[i,j]==1:
+ *                            bf_tiles+=1             # <<<<<<<<<<<<<<
+ *                        else:
+ *                            wf_tiles+=1
  */
               __pyx_v_bf_tiles = (__pyx_v_bf_tiles + 1);
 
               /* "riversi_cython.pyx":35
- *                     y=j+directions[k][0]
- *                     if (x >= 0 and x < 8 and y >= 0 and y < 8 and matrix[x,y] == 0):
- *                         if matrix[i,j]==1:             # <<<<<<<<<<<<<<
- *                             bf_tiles+=1
- *                         else:
+ *                    y=j+directions[k][0]
+ *                    if (x >= 0 and x < 8 and y >= 0 and y < 8 and matrix[x,y] == 0):
+ *                        if matrix[i,j]==1:             # <<<<<<<<<<<<<<
+ *                            bf_tiles+=1
+ *                        else:
  */
               goto __pyx_L17;
             }
 
             /* "riversi_cython.pyx":38
- *                             bf_tiles+=1
- *                         else:
- *                             wf_tiles+=1             # <<<<<<<<<<<<<<
- *                         break #nzm zasto
+ *                            bf_tiles+=1
+ *                        else:
+ *                            wf_tiles+=1             # <<<<<<<<<<<<<<
+ *                        break #nzm zasto
  * 
  */
             /*else*/ {
@@ -2395,20 +2395,20 @@ static PyObject *__pyx_pf_14riversi_cython_heuristics(CYTHON_UNUSED PyObject *__
             __pyx_L17:;
 
             /* "riversi_cython.pyx":39
- *                         else:
- *                             wf_tiles+=1
- *                         break #nzm zasto             # <<<<<<<<<<<<<<
+ *                        else:
+ *                            wf_tiles+=1
+ *                        break #nzm zasto             # <<<<<<<<<<<<<<
  * 
  *     if b_tiles>w_tiles:
  */
             goto __pyx_L10_break;
 
             /* "riversi_cython.pyx":34
- *                     x=i+directions[k][0]
- *                     y=j+directions[k][0]
- *                     if (x >= 0 and x < 8 and y >= 0 and y < 8 and matrix[x,y] == 0):             # <<<<<<<<<<<<<<
- *                         if matrix[i,j]==1:
- *                             bf_tiles+=1
+ *                    x=i+directions[k][0]
+ *                    y=j+directions[k][0]
+ *                    if (x >= 0 and x < 8 and y >= 0 and y < 8 and matrix[x,y] == 0):             # <<<<<<<<<<<<<<
+ *                        if matrix[i,j]==1:
+ *                            bf_tiles+=1
  */
           }
         }
@@ -2418,15 +2418,15 @@ static PyObject *__pyx_pf_14riversi_cython_heuristics(CYTHON_UNUSED PyObject *__
  *             if matrix[i,j]==1: b_tiles+=1
  *             elif matrix[i,j]==-1: w_tiles+=1
  *             if matrix[i,j]!=0:             # <<<<<<<<<<<<<<
- *                 for k in range(8):
- *                     x=i+directions[k][0]
+ *               for k in range(8):
+ *                    x=i+directions[k][0]
  */
       }
     }
   }
 
   /* "riversi_cython.pyx":41
- *                         break #nzm zasto
+ *                        break #nzm zasto
  * 
  *     if b_tiles>w_tiles:             # <<<<<<<<<<<<<<
  *         parity = 100 * b_tiles / (b_tiles + w_tiles)
@@ -2455,7 +2455,7 @@ static PyObject *__pyx_pf_14riversi_cython_heuristics(CYTHON_UNUSED PyObject *__
     __pyx_v_parity = __Pyx_div_long(__pyx_t_14, __pyx_t_1);
 
     /* "riversi_cython.pyx":41
- *                         break #nzm zasto
+ *                        break #nzm zasto
  * 
  *     if b_tiles>w_tiles:             # <<<<<<<<<<<<<<
  *         parity = 100 * b_tiles / (b_tiles + w_tiles)
@@ -3079,21 +3079,21 @@ static PyObject *__pyx_pf_14riversi_cython_heuristics(CYTHON_UNUSED PyObject *__
  *         corner_closeness += matrix[7, 6]
  *     corner_closeness*=-12.5             # <<<<<<<<<<<<<<
  * 
- *     score = (10 * parity) + (801.724 * corners) + (382.026 * corner_closeness)+ (74.396 * frontier) + (10 * dynamic)
+ *     score = (10 * parity) + (1000 * corners) + (382.026 * corner_closeness)+ (74.396 * frontier) + (10 * dynamic)
  */
   __pyx_v_corner_closeness = (__pyx_v_corner_closeness * -12.5);
 
   /* "riversi_cython.pyx":79
  *     corner_closeness*=-12.5
  * 
- *     score = (10 * parity) + (801.724 * corners) + (382.026 * corner_closeness)+ (74.396 * frontier) + (10 * dynamic)             # <<<<<<<<<<<<<<
+ *     score = (10 * parity) + (1000 * corners) + (382.026 * corner_closeness)+ (74.396 * frontier) + (10 * dynamic)             # <<<<<<<<<<<<<<
  *     return np.float16(score)
  */
-  __pyx_v_score = (((((10.0 * __pyx_v_parity) + (801.724 * __pyx_v_corners)) + (382.026 * __pyx_v_corner_closeness)) + (74.396 * __pyx_v_frontier)) + (10.0 * __pyx_v_dynamic));
+  __pyx_v_score = (((((10.0 * __pyx_v_parity) + (1000.0 * __pyx_v_corners)) + (382.026 * __pyx_v_corner_closeness)) + (74.396 * __pyx_v_frontier)) + (10.0 * __pyx_v_dynamic));
 
   /* "riversi_cython.pyx":80
  * 
- *     score = (10 * parity) + (801.724 * corners) + (382.026 * corner_closeness)+ (74.396 * frontier) + (10 * dynamic)
+ *     score = (10 * parity) + (1000 * corners) + (382.026 * corner_closeness)+ (74.396 * frontier) + (10 * dynamic)
  *     return np.float16(score)             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);

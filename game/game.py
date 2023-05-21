@@ -29,16 +29,16 @@ class Game(object):
             elif evaluation<0: print("WHITE WON!!!")
             else: print("DRAW.")
 
-
     def play_type1(self):
         print_pos_to_console(self.state)
         while not self.state.is_game_ended():
             dt = time.time()
-            evaluation, self.state = minimax.minimax_init(self.state)
+            evaluation, self.state,depth = minimax.minimax_init(self.state)
             print_pos_to_console(self.state)
             print(f"Lookup len: {len(minimax.lookup)}")
             print(f"Algorithm time: {time.time() - dt:.5f}")
             print(f"Evaluation: {evaluation}")
+            print(f"Depth: {depth}")
 
     def play_type2(self):
         first_iter=True
@@ -47,7 +47,7 @@ class Game(object):
             if not first_iter:
                 print(f"\nAlgorithm time: {minimax_time:.3f}s")
                 print(f"Evaluation: {evaluation}")
-            else: first_iter=False
+                print(f"Depth: {depth}")
             pos=possible_moves(self.state)
             temp=[]
             for i,item in enumerate(pos):
@@ -55,24 +55,28 @@ class Game(object):
                 temp.append(item)
                 print(f"{i+1}. {x+1}{chr(y+65)}")
             choice=str(input(">> "))
-            if not(choice.isnumeric() and int(choice)-1 in range(0,len(pos))): continue
+            if not(choice.isnumeric() and int(choice)-1 in range(0,len(pos))):
+                continue
             choice=temp[int(choice)-1]
             place_piece(self.state,choice[0],choice[1])
             print_state_to_console(self.state)
             minimax_time = time.time()
-            evaluation, self.state = minimax.minimax_init(self.state)
+            evaluation, self.state,depth = minimax.minimax_init(self.state)
             minimax_time = time.time() - minimax_time
+            first_iter = False
 
     def play_type3(self):
         while not self.state.is_game_ended():
+            print_pos_to_console(self.state)
             minimax_time=time.time()
-            evaluation, self.state = minimax.minimax_init(self.state)
+            evaluation, self.state,depth = minimax.minimax_init(self.state)
             minimax_time=time.time()-minimax_time
 
             while True:
                 print_pos_to_console(self.state)
                 print(f"\nAlgorithm time: {minimax_time:.3f}s")
                 print(f"Evaluation: {evaluation}")
+                print(f"Depth: {depth}")
                 pos = possible_moves(self.state)
                 temp = []
                 for i, item in enumerate(pos):

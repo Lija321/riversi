@@ -1,0 +1,2 @@
+fen za testiranje:
+	"1wwwww2/bwwwww2/bwwwwww1/bwbbwww1/bwbwbwww/bwbwwbww/bwwwwwbw/bwbbbb1b"

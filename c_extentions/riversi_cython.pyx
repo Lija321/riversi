@@ -28,15 +28,15 @@ def heuristics(np.ndarray[np.int8_t, ndim=2] matrix):
             if matrix[i,j]==1: b_tiles+=1
             elif matrix[i,j]==-1: w_tiles+=1
             if matrix[i,j]!=0:
-                for k in range(8):
-                    x=i+directions[k][0]
-                    y=j+directions[k][0]
-                    if (x >= 0 and x < 8 and y >= 0 and y < 8 and matrix[x,y] == 0):
-                        if matrix[i,j]==1:
-                            bf_tiles+=1
-                        else:
-                            wf_tiles+=1
-                        break #nzm zasto
+              for k in range(8):
+                   x=i+directions[k][0]
+                   y=j+directions[k][0]
+                   if (x >= 0 and x < 8 and y >= 0 and y < 8 and matrix[x,y] == 0):
+                       if matrix[i,j]==1:
+                           bf_tiles+=1
+                       else:
+                           wf_tiles+=1
+                       break #nzm zasto
 
     if b_tiles>w_tiles:
         parity = 100 * b_tiles / (b_tiles + w_tiles)
@@ -45,12 +45,13 @@ def heuristics(np.ndarray[np.int8_t, ndim=2] matrix):
     else:
         parity=0
 
-    if bf_tiles>wf_tiles:
-        frontier = -100 * bf_tiles / (bf_tiles + wf_tiles)
-    elif wf_tiles>bf_tiles:
-        frontier = 100 * wf_tiles / (bf_tiles + wf_tiles)
-    else:
-        frontier=0
+    frontier = 0
+    if bf_tiles+wf_tiles!=0:
+        if bf_tiles>wf_tiles:
+            frontier = -100 * bf_tiles / (bf_tiles + wf_tiles)
+        elif wf_tiles>bf_tiles:
+            frontier = 100 * wf_tiles / (bf_tiles + wf_tiles)
+
 
     cdef int c1=matrix[0,0]
     cdef int c2=matrix[0,7]
@@ -76,5 +77,5 @@ def heuristics(np.ndarray[np.int8_t, ndim=2] matrix):
         corner_closeness += matrix[7, 6]
     corner_closeness*=-12.5
 
-    score = (10 * parity) + (801.724 * corners) + (382.026 * corner_closeness)+ (74.396 * frontier) + (10 * dynamic)
+    score = (10 * parity) + (1000 * corners) + (382.026 * corner_closeness)+ (74.396 * frontier) + (10 * dynamic)
     return np.float16(score)

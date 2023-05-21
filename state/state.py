@@ -1,6 +1,7 @@
 import numpy as np
 import queue
 
+import minimax
 from common.exceptions import *
 from common import constants
 import c_extentions.riversi_c_utils as c_util
@@ -16,7 +17,7 @@ class State(object):
             self.matrix: np.matrix = fen_to_matrix(fen)
             self.player_to_move: np.int8 = np.int8(player_to_move)
         else:
-            raise StateException()
+            raise StateException("Napravljena prazna matrica")
 
     def is_game_ended(self):
         return len(possible_moves(self)) == 0
@@ -43,6 +44,8 @@ directions = (
 )
 
 lookup = {}
+
+corners=((0,0),(0,7),(7,0),(7,7))
 
 posible_moves_lookup = {}
 
@@ -181,18 +184,19 @@ def state_children(state: State) -> iter:
     pos = possible_moves(state)
     ret = []
     for x, y in pos:
+
         new_state: State = State(state, None, None)
         place_piece(new_state, x, y)
-        ret.append(new_state)
+        if (x,y) in corners:
+            ret.insert(0,new_state)
+        else:
+            ret.append(new_state)
+    #ret.sort(key=lambda x: heuristics(x))
     return ret
 
 
-
 def _main():
-    state = State(None, "8/8/8/3wb3/3bw3/ww6/8/8")
-    print(rc.heuristics(state.matrix))
-    print(str(state))
-
+    pass
 
 if __name__ == "__main__":
     _main()
