@@ -3,33 +3,30 @@
 
 static PyObject* heuristic(PyObject* self, PyObject* args)
 {
-    PyArrayObject* matrix;
-
-    // Parse the input arguments
-    if (!PyArg_ParseTuple(args, "O!", &PyArray_Type, &matrix)) {
+    PyArrayObject* input_array;
+    if (!PyArg_ParseTuple(args, "O!", &PyArray_Type, &input_array)) {
         return NULL;
     }
 
-    if (PyArray_NDIM(matrix) != 2 || PyArray_TYPE(matrix) != NPY_INT8 ||
-        PyArray_DIM(matrix, 0) != 8 || PyArray_DIM(matrix, 1) != 8) {
-        PyErr_SetString(PyExc_TypeError, "Expected an 8x8 int8 matrix");
+    if (PyArray_TYPE(input_array) != NPY_INT8) {
+        PyErr_SetString(PyExc_TypeError, "Expected int8 matrix.");
         return NULL;
     }
 
-    // Get a pointer to the matrix data
-    int8_t* data = (int8_t*)PyArray_DATA(matrix);
-
-    // Calculate the heuristic value
-    npy_float16 result = 0.0;
-    for (int i = 0; i < 64; i++) {
-        result += (npy_float16)data[i];
+    npy_intp* dims = PyArray_DIMS(input_array);
+    if (dims[0] != 8 || dims[1] != 8) {
+        PyErr_SetString(PyExc_ValueError, "Expected 8x8 matrix.");
+        return NULL;
     }
 
-    // Clean up
-    Py_DECREF(matrix);
+    npy_int8* data = (npy_int8*)PyArray_DATA(input_array);
+    npy_int16 sum = 0;
+    for (npy_intp i = 0; i < dims[0] * dims[1]; i++) {
+        sum += (npy_int16)data[i];
+    }
 
-    // Return the result as a numpy.float16
-    return PyFloat_FromDouble((double)result);
+    PyObject* result = PyFloat_FromDouble((double)sum);
+    return result;
 }
 
 static PyMethodDef module_methods[] = {

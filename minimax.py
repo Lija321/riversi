@@ -8,7 +8,7 @@ def minimax_init(state:State) -> (np.float16,State):
     coin_count=np.sum(np.abs(state.matrix))
     depth=6
     if coin_count<=7:
-        depth=8
+        depth=6
     elif coin_count<=13:
         depth=6
     elif coin_count<=50:

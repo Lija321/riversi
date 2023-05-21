@@ -4,7 +4,7 @@ import queue
 from common.exceptions import *
 from common import constants
 import c_extentions.riversi_c_utils as c_util
-
+import c_extentions.riversi_cython as rc
 
 class State(object):
 
@@ -139,7 +139,7 @@ def heuristics(state: State) -> np.float16:
             return np.float16('inf')
         else:
             return np.float16('-inf')
-    score = c_util.heuristic(state.matrix)
+    score = rc.heuristics(state.matrix)
     lookup[str(state)] = score
     return score
 
@@ -190,7 +190,8 @@ def state_children(state: State) -> iter:
 
 def _main():
     state = State(None, "8/8/8/3wb3/3bw3/ww6/8/8")
-    print(heuristics(state))
+    print(rc.heuristics(state.matrix))
+    print(str(state))
 
 
 if __name__ == "__main__":
