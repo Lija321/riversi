@@ -24,7 +24,8 @@ def minimax_init(state:State) -> (np.float16,State):
             depth+=1
         else: break
     if best_state is None:
-        raise Exception("Greska u minimax-u")
+        _elapsed_time=time.time()
+        best_eval,best_state=minimax(state,3,maximize)
     return best_eval,best_state,depth
     #coin_count=np.sum(np.abs(state.matrix))
     #depth=6
@@ -52,7 +53,7 @@ def minimax(state:State,depth:int=6,maximize:bool=True,
             evaluation=alphabeta(child,depth-1,False,alpha,beta)
             maxEval=np.maximum(maxEval,evaluation)
             alpha=np.maximum(alpha,evaluation)
-            if beta<=alpha: break
+            if beta<alpha: break
             if maxEval == evaluation: retState = child
         if time.time() - _elapsed_time > _vremesnko_ogranicenje:
             return 0.0, None
@@ -66,7 +67,7 @@ def minimax(state:State,depth:int=6,maximize:bool=True,
             minEval=np.minimum(minEval,evaluation)
             beta = np.minimum(beta,evaluation)
             if minEval == evaluation: retState = child
-            if beta<=alpha: break
+            if beta<alpha: break
         if time.time() - _elapsed_time > _vremesnko_ogranicenje:
             return 0.0, None
         return minEval,retState
