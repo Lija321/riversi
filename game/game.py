@@ -1,3 +1,4 @@
+import state.state
 from state.state import *
 import os
 from common import constants
@@ -8,16 +9,19 @@ import readline
 
 class Game(object):
 
-    def __init__(self,type:int=1,fen:str=constants.DEFAULT_FEN,player_to_move:int=1):
+    def __init__(self,type:int=1,fen:str=constants.DEFAULT_FEN,player_to_move:int=1,lookup=None):
         """
 
         :param fen:
         :param player_to_move:
         :param type: 1: AI v AI; 2: P v AI; 3: AI v P; 4: P v P
         """
+        if fen is None: fen=constants.DEFAULT_FEN
+        if player_to_move is None: player_to_move=1
         self.state=State(None,fen,player_to_move)
         self.type=type
         if not self.type in range(0,5): raise Exception('Invalid type')
+        if not lookup is None: state.state.lookup=lookup
 
     def play(self):
             if self.type==1: self.play_type1()
@@ -35,7 +39,7 @@ class Game(object):
             dt = time.time()
             evaluation, self.state,depth = minimax.minimax_init(self.state)
             print_pos_to_console(self.state)
-            print(f"Lookup len: {len(minimax.lookup)}")
+            print(f"Lookup len: {len(state.state.lookup)}")
             print(f"Algorithm time: {time.time() - dt:.5f}")
             print(f"Evaluation: {evaluation}")
             print(f"Depth: {depth}")

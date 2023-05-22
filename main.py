@@ -1,12 +1,16 @@
 import os
 import sys
 import traceback
-import json
+import pickle
 
 from game.game import Game
-from state.state import lookup
+import state
 
 def main():
+    global lookup
+    with open('lookup.pkl', 'rb') as f:
+        state.state.lookup = pickle.load(f)
+
     while True:
         os.system("clear")
         print("Choose mode:\n1. AI vs AI\n2. P vs AI\n3. AI v P\n4. P v P")
@@ -14,8 +18,11 @@ def main():
         if not(mode.isnumeric() and int(mode) in range(0,5)):continue
         mode=int(mode)
         break
-    g=Game(mode)
+    g=Game(mode,None,None,None)
     g.play()
+    with open('lookup.pkl', 'wb') as f:
+        pickle.dump(lookup, f)
+
 
 if __name__=="__main__":
     try:
