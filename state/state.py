@@ -1,7 +1,6 @@
 import numpy as np
 import queue
 
-import minimax
 from common.exceptions import *
 from common import constants
 import c_extentions.riversi_c_utils as c_util
