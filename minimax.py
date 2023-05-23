@@ -53,7 +53,9 @@ def minimax(state:State,depth:int=6,maximize:bool=True,
             evaluation=alphabeta(child,depth-1,False,alpha,beta)
             maxEval=np.maximum(maxEval,evaluation)
             alpha=np.maximum(alpha,evaluation)
-            if beta<alpha: break
+            if beta<=alpha:
+                #print('pruned max')
+                break
             if maxEval == evaluation: retState = child
         if time.time() - _elapsed_time > _vremesnko_ogranicenje:
             return 0.0, None
@@ -67,7 +69,9 @@ def minimax(state:State,depth:int=6,maximize:bool=True,
             minEval=np.minimum(minEval,evaluation)
             beta = np.minimum(beta,evaluation)
             if minEval == evaluation: retState = child
-            if beta<alpha: break
+            if beta<=alpha:
+                #print('pruned min')
+                break
         if time.time() - _elapsed_time > _vremesnko_ogranicenje:
             return 0.0, None
         return minEval,retState
@@ -91,7 +95,9 @@ def alphabeta(state:State,depth:int=6, maximize:bool=True,
             evaluation=alphabeta(child,depth-1,False,alpha,beta)
             maxEval=np.maximum(maxEval,evaluation)
             alpha=np.maximum(alpha,evaluation)
-            if beta<=alpha: break
+            if beta<=alpha:
+                #print('pruned max')
+                break
         return maxEval
     else:
         minEval=np.float16('inf')
@@ -102,7 +108,9 @@ def alphabeta(state:State,depth:int=6, maximize:bool=True,
             evaluation=alphabeta(child,depth-1,True,alpha,beta)
             minEval=np.minimum(minEval,evaluation)
             beta = np.minimum(beta,evaluation)
-            if beta<=alpha: break
+            if beta<=alpha:
+                #print('pruned min')
+                break
         return minEval
 
 if __name__=="__main__":
