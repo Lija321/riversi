@@ -39,10 +39,11 @@ class Game(object):
             dt = time.time()
             evaluation, self.state,depth = minimax.minimax_init(self.state)
             print_pos_to_console(self.state)
-            print(f"Lookup len: {len(state.state.lookup)}")
             print(f"Algorithm time: {time.time() - dt:.5f}")
-            print(f"Evaluation: {evaluation}")
+            print(f"Evaluation: {evaluation:.5f}")
             print(f"Depth: {depth}")
+            print(f"Heuristics: {state.state.lookup_counter}\nPosible moves: {state.state.posible_moves_lookup_counter}\nChilder: {state.state.children_lookup_counter}")
+            print(f"Lookup len: {len(state.state.lookup)}")
 
     def play_type2(self):
         first_iter=True
@@ -50,8 +51,10 @@ class Game(object):
             print_pos_to_console(self.state)
             if not first_iter:
                 print(f"\nAlgorithm time: {minimax_time:.3f}s")
-                print(f"Evaluation: {evaluation}")
+                print(f"Evaluation: {evaluation:.5f}")
                 print(f"Depth: {depth}")
+                print(f"Heuristics: {state.state.lookup_counter}\nPosible moves: {state.state.posible_moves_lookup_counter}\nChilder: {state.state.children_lookup_counter}")
+                print(f"Lookup len: {len(state.state.lookup)}")
             pos=possible_moves(self.state)
             temp=[]
             for i,item in enumerate(pos):
@@ -79,8 +82,10 @@ class Game(object):
             while True:
                 print_pos_to_console(self.state)
                 print(f"\nAlgorithm time: {minimax_time:.3f}s")
-                print(f"Evaluation: {evaluation}")
+                print(f"Evaluation: {evaluation:.5f}")
                 print(f"Depth: {depth}")
+                print(f"Heuristics: {state.state.lookup_counter}\nPosible moves: {state.state.posible_moves_lookup_counter}\nChilder: {state.state.children_lookup_counter}")
+                print(f"Lookup len: {len(state.state.lookup)}")
                 pos = possible_moves(self.state)
                 temp = []
                 for i, item in enumerate(pos):

@@ -7,9 +7,9 @@ from game.game import Game
 import state
 
 def main():
-    global lookup
-    with open('lookup.pkl', 'rb') as f:
-        state.state.lookup = pickle.load(f)
+    #global lookup
+    #with open('lookup.pkl', 'rb') as f:
+    #    state.state.lookup = pickle.load(f)
 
     while True:
         os.system("clear")
@@ -20,8 +20,8 @@ def main():
         break
     g=Game(mode,None,None,None)
     g.play()
-    with open('lookup.pkl', 'wb') as f:
-        pickle.dump(lookup, f)
+    #with open('lookup.pkl', 'wb') as f:
+    #    pickle.dump(state.state.lookup, f)
 
 
 if __name__=="__main__":

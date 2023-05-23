@@ -78,4 +78,4 @@ def heuristics(np.ndarray[np.int8_t, ndim=2] matrix):
     corner_closeness*=-12.5
 
     score = (10 * parity) + (1000 * corners) + (382.026 * corner_closeness)+ (74.396 * frontier) + (10 * dynamic)
-    return np.float16(score)
+    return np.float32(score)

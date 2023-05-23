@@ -43,11 +43,15 @@ directions = (
 )
 
 lookup = {}
+lookup_counter=0
 
 corners=((0,0),(0,7),(7,0),(7,7))
 
 posible_moves_lookup = {}
+posible_moves_lookup_counter=0
 
+children_lookup={}
+children_lookup_counter=0
 
 def fen_to_matrix(fen: str) -> np.matrix:
     data: np.matrix = np.matrix(np.zeros((8, 8), dtype=np.int8))
@@ -72,7 +76,10 @@ def fen_to_matrix(fen: str) -> np.matrix:
     return data
 
 def possible_moves(state: State):
-    if state in posible_moves_lookup: return posible_moves_lookup[str(state)]
+    global posible_moves_lookup_counter
+    if (str(state),state.player_to_move) in posible_moves_lookup:
+        posible_moves_lookup_counter+=1
+        return posible_moves_lookup[(str(state),state.player_to_move)]
     ret = set()  # TODO Nadji nesto efikasnije
     player_to_move: np.int8 = state.player_to_move  # TODO popravi ovo
     for x in range(8):
@@ -99,7 +106,7 @@ def possible_moves(state: State):
                             break
                         else:
                             line_found = True
-    posible_moves_lookup[str(state)] = ret
+    posible_moves_lookup[(str(state),state.player_to_move)] = ret
     return ret
 
 """
@@ -133,7 +140,10 @@ def heuristics(state:State) ->np.float16:
 """
 
 def heuristics(state: State) -> np.float16:
-    if state in lookup: return lookup[str(state)]
+    global lookup_counter
+    if str(state) in lookup:
+        lookup_counter+=1
+        return lookup[str(state)]
     if state.is_game_ended():
         piece_sum = np.sum(state.matrix)
         if piece_sum == 0: return np.float16(0.0)
@@ -180,6 +190,10 @@ def place_piece(state: State, x, y) -> None:
 
 
 def state_children(state: State) -> iter:
+    global children_lookup_counter
+    if (str(state),state.player_to_move) in children_lookup:
+        children_lookup_counter+=1
+        return children_lookup[(str(state),state.player_to_move)]
     pos = possible_moves(state)
     ret = []
     for x, y in pos:
@@ -191,6 +205,7 @@ def state_children(state: State) -> iter:
         else:
             ret.append(new_state)
     #ret.sort(key=lambda x: heuristics(x))
+    children_lookup[(str(state),state.player_to_move)]=ret
     return ret
 
 
