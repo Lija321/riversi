@@ -3,7 +3,7 @@ import queue
 
 from common.exceptions import *
 from common import constants
-import c_extentions.riversi_c_utils as c_util
+#import c_extentions.riversi_c_utils as c_util
 import c_extentions.riversi_cython as rc
 
 class State(object):
